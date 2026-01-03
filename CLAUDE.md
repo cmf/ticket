@@ -8,9 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-Run the script directly:
+Run directly or via `tk` alias (common convention):
 ```bash
 ./ticket <command> [args]
+tk <command> [args]
 ```
 
 ### Ticket Creation
@@ -62,8 +63,9 @@ Options for `create`:
 | Command | Description |
 |---------|-------------|
 | `migrate-beads` | Import tickets from .beads/issues.jsonl |
+| `help` | Show usage information |
 
-Partial ID matching is supported (e.g., `./ticket show abc` matches `t-abc1234`).
+Partial ID matching is supported (e.g., `tk show abc` matches `t-abc1234`).
 
 ## Ticket Format
 
@@ -111,3 +113,18 @@ Key functions:
 - `cmd_ready()`, `cmd_blocked()`, `cmd_ls()` - awk-based bulk listing with sorting
 
 Dependencies: bash, sed, awk, find. Optional: ripgrep (faster grep), jq (for query command).
+
+## Releases & Packaging
+
+Releases are triggered by pushing a version tag:
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The GitHub Actions workflow (`.github/workflows/release.yml`) automatically:
+1. Creates a GitHub release with generated notes
+2. Updates the Homebrew formula in `wedow/homebrew-tools` tap
+3. Updates the AUR package (builds `.SRCINFO` via Docker)
+
+Both package managers install the script as `tk` in the user's PATH.
