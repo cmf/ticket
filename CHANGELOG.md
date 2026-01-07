@@ -5,6 +5,9 @@
 ### Added
 - `add-note` command for appending timestamped notes to tickets
 
+### Fixed
+- `done` command no longer checks for invalid "done" status (only checks "closed")
+
 ## [0.2.0] - 2026-01-04
 
 ### Added

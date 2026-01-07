@@ -607,7 +607,7 @@ cmd_closed() {
     in_front && /^status:/ { status = $2 }
     !in_front && /^# / && title == "" { title = substr($0, 3) }
     function emit() {
-        if (id != "" && (status == "closed" || status == "done")) {
+        if (id != "" && status == "closed") {
             output[++count] = sprintf("%-8s [%s] - %s", id, status, title)
         }
     }
