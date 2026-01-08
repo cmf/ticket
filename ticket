@@ -143,6 +143,7 @@ cmd_create() {
     {
         echo "---"
         echo "id: $id"
+        echo "title: $title"
         echo "status: open"
         echo "deps: []"
         echo "links: []"
@@ -1152,6 +1153,7 @@ cmd_migrate_beads() {
         "<<<FILE:\(.id)>>>\n" +
         "---\n" +
         "id: \(.id)\n" +
+        "title: \(.title // "Untitled")\n" +
         "status: \(.status // "open")\n" +
         "deps: \($deps)\n" +
         "links: \($links)\n" +
