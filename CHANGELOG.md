@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- `header` command for getting/setting arbitrary frontmatter fields
 - `add-note` command for appending timestamped notes to tickets
 - `title` field now included in frontmatter when creating/importing tickets
 

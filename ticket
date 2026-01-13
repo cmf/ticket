@@ -208,6 +208,28 @@ cmd_status() {
     echo "Updated $(basename "$file" .md) -> $status"
 }
 
+cmd_header() {
+    if [[ $# -lt 2 ]]; then
+        echo "Usage: $(basename "$0") header <id> <field> [value]" >&2
+        return 1
+    fi
+
+    local id="$1"
+    local field="$2"
+    local file
+    file=$(ticket_path "$id") || return 1
+
+    if [[ $# -eq 2 ]]; then
+        # Get mode: return value (empty string if not found, exit 0)
+        yaml_field "$file" "$field" || true
+    else
+        # Set mode: update field with value
+        local value="$3"
+        update_yaml_field "$file" "$field" "$value"
+        echo "Updated $(basename "$file" .md) $field -> $value"
+    fi
+}
+
 cmd_start() {
     if [[ $# -lt 1 ]]; then
         echo "Usage: $(basename "$0") start <id>" >&2
@@ -1205,6 +1227,7 @@ Commands:
   close <id>               Set status to closed
   reopen <id>              Set status to open
   status <id> <status>     Update status (open|in_progress|closed)
+  header <id> <field> [val] Get or set arbitrary frontmatter field
   dep <id> <dep-id>        Add dependency (id depends on dep-id)
   dep tree [--full] <id>   Show dependency tree (--full disables dedup)
   undep <id> <dep-id>      Remove dependency
@@ -1232,6 +1255,7 @@ case "${1:-help}" in
     close)  shift; cmd_close "$@" ;;
     reopen) shift; cmd_reopen "$@" ;;
     status) shift; cmd_status "$@" ;;
+    header) shift; cmd_header "$@" ;;
     dep)    shift; cmd_dep "$@" ;;
     undep)  shift; cmd_undep "$@" ;;
     link)   shift; cmd_link "$@" ;;
