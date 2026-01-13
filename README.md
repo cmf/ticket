@@ -70,6 +70,7 @@ Commands:
   close <id>               Set status to closed
   reopen <id>              Set status to open
   status <id> <status>     Update status (open|in_progress|closed)
+  header <id> <field> [val] Get or set arbitrary frontmatter field
   dep <id> <dep-id>        Add dependency (id depends on dep-id)
   dep tree [--full] <id>   Show dependency tree (--full disables dedup)
   undep <id> <dep-id>      Remove dependency
